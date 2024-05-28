@@ -8,14 +8,14 @@ const {data} = Astro.props;
 <div class="article">
     <article>
         <div>
-         <a href={`/garment/${data.slug}`}>
+         <a href={`/garment${data.slug}`}>
             <div class="billede1">
             <img src={data.billede} alt="billede">
         </div>
     </a><div class="container">
             <div class="heart" id="heart" onclick="skiftBillede()"></div>
         </div>
-    <a href={`/garment/${data.slug}`} class="article1">
+    <a href={`/garment${data.slug}`} class="article1">
         <div class="overskrift">
         <h3>{data.overskrift}</h3>
     </div>
