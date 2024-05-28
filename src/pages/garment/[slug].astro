@@ -16,7 +16,7 @@ export async function getStaticPaths() {
     // Mapper data til en liste af stier med tilhørende props
     return data.map((shop) => {
         return {
-            params: { id: shop.id }, // Definerer parameteren for stien
+            params: { slug: shop.slug }, // Definerer parameteren for stien
             props: { myData: shop }, // Indstiller egenskaberne for siden
         };
     });
