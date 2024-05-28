@@ -1,0 +1,51 @@
+---
+// Henter værdien af tekst1 fra props i Astro-komponenten
+const tekst1 = Astro.props.tekst1;
+
+// Henter værdien af tekst2 fra props i Astro-komponenten
+const tekst2 = Astro.props.tekst2;
+---
+
+<!-- 
+    Dette er en knap med dynamisk tekstindhold.
+    Tekst1 repræsenterer det primære tekstindhold i knappen.
+    Tekst2 repræsenterer et tilføjet tekstindhold, der vises kursivt.
+-->
+<button>{tekst1}<span style="font-style: italic">{tekst2}</span></button>
+
+<style>
+button {
+    border: none;
+    border-radius: 5px;
+    background-color: #849500;
+    transition: background-color 0.3s ease; 
+    font-family: Mazius Display;
+    font-size: 25px;
+    width: 300px;
+    height: 40px;
+    color: #FFFAF5;
+    padding: -80px;
+    cursor: pointer;
+}
+
+button:hover {
+    color: #849500;
+    background-color: #C8D94A;
+}
+
+/* mobil */
+@media screen and (max-width: 768px) {
+button {
+    width: 230px;
+    height: 40px;
+    color: #FFFAF5;
+    padding: -80px;
+    font-size: 20px;
+}
+button:hover {
+    color: #849500;
+    background-color: #C8D94A;
+}
+}
+</style>
+

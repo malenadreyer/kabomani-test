@@ -1,0 +1,472 @@
+---
+import Mainlayout from "../layout/Mainlayout.astro";
+import Button from "../componenter/Button.astro";
+
+//funktion, der henter statiske stier til dynamiske sider
+export async function getStaticPaths() {
+    // Henter data fra et Supabase
+    const data = await fetch('https://bifxyvyrqkafduaqfwhe.supabase.co/rest/v1/kabomani?select=*', {
+        method: "GET", // Angiver anmodningsmetoden som GET
+        headers: {
+            // Indsæt API-nøglen til godkendelse med Supabase backend
+            apikey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJpZnh5dnlycWthZmR1YXFmd2hlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTU1MjkzNTksImV4cCI6MjAzMTEwNTM1OX0.IqWoAtIBkjXXKbFnJ9BDvFcyIpgl8_3ZWTFgC0wfLlo"
+        },
+    }).then(response => response.json());
+
+    // Mapper data til en liste af stier med tilhørende props
+    return data.map((shop) => {
+        return {
+            params: { slug: shop.slug }, // Definerer parameteren for stien
+            props: { myData: shop }, // Indstiller egenskaberne for siden
+        };
+    });
+}
+
+// Uden for getStaticPaths-funktionen:
+// Henter data fra props i Astro-komponenten og udskriver det til konsollen
+const { myData } = Astro.props;
+console.log(myData);
+   
+---
+
+<Mainlayout>
+
+<div class="container">
+    <div class="sti">
+        <h5>Hjem</h5>
+        <h5>></h5>
+        <h5>Tøj</h5>
+        <h5>></h5>
+        <h5>{myData.overskrift}</h5>
+    </div>
+
+    <div class="produktnavn2">
+            <h2>{myData.overskrift}</h2>
+        </div>
+
+    <div class="desktop_layout">
+    <div class="img_container">
+        <img src={myData.billede} alt="">
+    </div>
+
+    <div class="info">
+        <div class="tekst">
+        <div class="produktnavn">
+            <h2>{myData.overskrift}</h2>
+        </div>
+        <div>
+            <h4 class="pris">Pris: <span>{myData.price}</span> DKK</h4>
+            <h3 class="beskrivelse">Beskrivelse: {myData.beskrivelse}</p>
+            <h3 class="størrelse">Størrelse: <span>{myData.size}</span></h3>
+            <h3 class="forretning">Forretning: <span>{myData.forretning}</span></h3>
+        </div>
+        </div>
+        <div class="knapper">
+        <Button tekst1="Køb" tekst2=" nu"/>
+        <button id="hjerteButton"></button>
+
+        </div>
+    </div>
+</div>
+</div>
+<div class="line-container">
+    <hr class="line">
+</div>
+
+<h2 class="anbefalet">Anbefalet<span style="font-style: italic; margin-left: 8px;"> til dig</span></h2>
+
+<div class="carousel_outer_container">
+    <button class="carousel-button prev">❮</button>
+    <div class="carousel_wrapper">
+        <div class="carousel">
+            <div><img src="https://tapirus.dk/images/thumbs/0760003.jpeg" alt="divisonhat"></div>
+            <div><img src="https://tapirus.dk/images/thumbs/0741004.jpeg" alt="jakke"></div>
+            <div><img src="https://tapirus.dk/images/thumbs/0735988.jpeg" alt="langærmet"></div>
+            <div><img src="https://tapirus.dk/images/thumbs/0745164.jpeg" alt="sko"></div>
+            <div><img src="https://tapirus.dk/images/thumbs/0760352.jpeg" alt="hat"></div>
+            <div><img src="https://tapirus.dk/images/thumbs/0741066.jpeg" alt="shorts"></div>
+            <div><img src="https://tapirus.dk/images/thumbs/0759958.jpeg" alt="solbriller"></div>
+            <div><img src="https://tapirus.dk/images/thumbs/0741015.jpeg" alt="divisionjakke"></div>
+            <div><img src="https://tapirus.dk/images/thumbs/0745817.jpeg" alt="sko"></div>
+            <div><img src="https://tapirus.dk/images/thumbs/0741008.jpeg" alt="shorts"></div>
+        </div>
+    </div>
+    <button class="carousel-button next">❯</button>
+</div>
+
+</Mainlayout>
+
+<!-- HJERTE KNAP -->
+<script>
+  document.addEventListener('DOMContentLoaded', (event) => {
+    const heartButton = document.getElementById('hjerteButton');
+
+    heartButton.addEventListener('click', () => {
+        console.log("tihi")
+      if (heartButton.style.backgroundImage.includes('hjerte1.svg')) {
+        heartButton.style.backgroundImage = "url('/public/vectors/hjerte2.svg')";
+      } else {
+        heartButton.style.backgroundImage = "url('/public/vectors/hjerte1.svg')";
+      }
+    });
+  });
+
+
+document.addEventListener('DOMContentLoaded', () => {
+    const track = document.querySelector('.carousel');
+    const slides = Array.from(track.children);
+    const nextButton = document.querySelector('.next');
+    const prevButton = document.querySelector('.prev');
+
+    const slideWidth = slides[0].getBoundingClientRect().width + 50;
+
+
+    const setSlidePosition = (slide, index) => {
+        slide.style.left = slideWidth * index + 'px';
+    };
+    slides.forEach(setSlidePosition);
+
+    let currentIndex = 0;
+
+    const moveToSlide = (track, currentIndex) => {
+        const amountToMove = -slideWidth * currentIndex;
+        track.style.transform = 'translateX(' + amountToMove + 'px)';
+    };
+
+    nextButton.addEventListener('click', () => {
+        currentIndex = (currentIndex + 1) % slides.length;
+        moveToSlide(track, currentIndex);
+    });
+
+    prevButton.addEventListener('click', () => {
+        currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+        moveToSlide(track, currentIndex);
+    });
+    moveToSlide(track, currentIndex);
+});
+</script>
+
+
+
+<style>
+/* General STYLING */
+h2 {
+    color: #262521;
+    font-weight: lighter;
+}
+
+h5, h3, p {
+    font-weight: lighter;
+}
+
+#hjerteButton {
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    background-color: #849500;
+    transition: background-color 0.3s ease;
+    width: 50px;
+    height: 40px;
+    background-image: url('/public/vectors/hjerte1.svg');
+    background-size: 60%;
+    background-position: center;
+    background-repeat: no-repeat;
+    padding: 5px;
+}
+
+#hjerteButton:hover {
+    background-image: url('/public/vectors/hjerte2.svg');
+    background-size: 60%;
+    background-position: center;
+}
+
+/* Desktop Styles */
+@media screen and (min-width: 768px) {
+
+    .sti {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        margin-bottom: 20px;
+    }
+
+    h2 {
+        display: flex;
+        justify-content: center;
+        font-size: 38px;
+    }
+
+    .pris {
+        font-size: 20px;
+        margin-top: -250px;
+        margin-bottom: 50px;
+    }
+
+    h3, p {
+        font-size: 24px;
+    }
+
+    .desktop_layout {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 120px;
+        margin-left: -80px;
+    }
+
+    .info {
+        max-width: 380px;
+    }
+
+    .img_container {
+        width: 450px;
+        height: 500px;
+        overflow: hidden; /* Hide any overflow */
+    }
+
+    .img_container img {
+        width: 100%;  /* Make the image fill the container */
+        height: 100%; /* Make the image fill the container */
+        object-fit: cover; /* Crop the image to fit the container */
+    }
+
+    .knapper {
+        display: flex;
+        gap: 30px;
+        justify-content: center;
+        margin-top: 150px;
+        margin-bottom: -200px;
+    }
+
+    .produktnavn {
+        display: none;
+    }
+
+    .produktnavn2, .anbefalet {
+        margin-bottom: 70px;
+    }
+
+    .tekst {
+        display: flex; /* Add display flex */
+        flex-direction: column; /* Stack children vertically */
+        align-items: center; /* Center content horizontally */
+        gap: 520px; /* Add gap between children */
+        margin-left: -75px; /* Adjust as needed */
+    }
+
+    .line-container {
+        display: flex;
+        justify-content: center;
+    }
+
+    .line {
+        border-top: 1px solid black;
+        opacity: 30%;
+        width: 92%;
+        margin-top: 170px;
+        margin-bottom: 85px;
+    }
+
+/* CARRUSEL */
+.carousel_outer_container {
+    width: 80%;
+    margin: 0 auto;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 150px;
+}
+
+/* Wrapper to apply overflow hidden */
+.carousel_wrapper {
+    overflow: hidden;
+    width: 100%;
+}
+
+/* Carousel container */
+.carousel {
+    display: flex;
+    transition: transform 0.5s ease;
+    gap: 50px;
+}
+
+.carousel img {
+    width: 350px;
+    height: 400px; 
+    overflow: hidden;
+}
+
+/* Arrows */
+.carousel-button {
+    position: absolute;
+    font-size: 3.5rem; /* Increase the size of the arrows */
+    background-color: transparent;
+    border: none;
+    color: #849500;
+    padding: 10px;
+    cursor: pointer;
+    z-index: 1; /* Ensure buttons are above images */
+    transition: color 0.3s ease;
+}
+
+.carousel-button:hover {
+    color: #C8D94A;
+}
+
+.prev {
+    left: -60px; /* Move button outside to the left */
+}
+
+.next {
+    right: -60px; /* Move button outside to the right */
+}
+}
+
+/* Mobile Styles */
+@media screen and (max-width: 767px) {
+
+    /* styling */
+    .sti p {
+        font-size: 14px;
+    }
+
+    h2 {
+        font-size: 30px;
+    }
+
+    h3, p {
+        font-size: 18px;
+    }
+
+    .img_container {
+        display: flex;
+        justify-content: center; /* Horizontal centering */
+        grid-row: 2;
+    }
+
+    .img_container img {
+        width: 350px;
+        height: 400px;
+    }
+
+    .pris {
+        font-size: 20px;
+    }
+
+    /* layout */
+    .sti {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        margin-bottom: 20px;
+        grid-row: 1;
+    }
+
+    .produktnavn2 {
+        display: none;
+    }
+
+    .container {
+        margin-left: 50px;
+        margin-right: 50px;
+        display: grid;
+        grid-template-rows: auto auto 1fr;
+        row-gap: 20px;
+    }
+
+    .info {
+        display: grid; /* Add display flex */
+        justify-content: center; /* Center children horizontally */
+        align-items: center; /* Center children vertically */
+        flex-direction: column; /* Stack children vertically */
+    }
+
+    .tekst {
+        justify-content: center;
+    }
+
+    .knapper {
+        display: flex;
+        gap: 30px;
+        justify-content: center;
+        margin-top: 60px;
+    }
+
+    .line-container {
+        display: flex;
+        justify-content: center;
+    }
+
+    .line {
+        border-top: 1px solid black;
+        opacity: 30%;
+        width: 90%;
+        margin-top: 100px;
+        margin-bottom: 70px;
+    }
+
+   .anbefalet{
+        display: flex;
+        justify-content: center;
+        text-align: center;
+        margin-bottom: 50px;
+    }
+
+    /* CARRUSEL */
+.carousel_outer_container {
+    width: 80%;
+    margin: 0 auto;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 100px;
+}
+
+/* Wrapper to apply overflow hidden */
+.carousel_wrapper {
+    overflow: hidden;
+    width: 100%;
+}
+
+/* Carousel container */
+.carousel {
+    display: flex;
+    transition: transform 0.5s ease;
+    gap: 50px;
+}
+
+.carousel img {
+    width: 350px;
+    height: 400px; 
+    overflow: hidden;
+}
+
+/* Arrows */
+.carousel-button {
+    position: absolute;
+    font-size: 3.5rem; /* Increase the size of the arrows */
+    background-color: transparent;
+    border: none;
+    color: #849500;
+    padding: 10px;
+    cursor: pointer;
+    z-index: 1; /* Ensure buttons are above images */
+    transition: color 0.3s ease;
+}
+
+.carousel-button:hover {
+    color: #C8D94A;
+}
+
+.prev {
+    left: -45px; /* Move button outside to the left */
+}
+
+.next {
+    right: -45px; /* Move button outside to the right */
+}
+}
+
+</style>

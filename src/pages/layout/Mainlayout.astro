@@ -1,0 +1,432 @@
+
+<html lang="da">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="viewport" content="width=device-width" />
+        <link rel="stylesheet" href="/src/pages/layout/styles.css">
+		<meta name="generator" content="Astro" />
+        <meta name="description"> 
+		<title>Forside</title>
+	</head>
+	<body>
+
+<!--Mobil menu -->
+<header class="header">
+    <div class="mobile-menu">
+        <div class="mobile-header">
+            <div class="burger-icon" >&#9776;</div>
+            <a href="/" class="logo"><img src="/vectors/Logo _mobil.svg" alt="kabomani logo"></a>
+            <div class="image-icon"><img src="/public/vectors/kurv.svg" alt="kabomani logo"></div>
+        </div>
+        <div id="sideNav" class="side-nav">
+            <div class="navlogo"> <img src="/vectors/Logo _mobil.svg" alt="kabomanni logo"><button class="close-btn" aria-label="Close">&times;</button>
+            </div>
+            <input type="text" class="search-bar1" placeholder="Søg...">
+            <a class="nava" href="/garment">Tøj</a>
+            <a class="nava" href="/garment">Sko</a>
+            <a class="nava" href="/garment">Tasker</a>
+            <a class="nava" href="/garment">Acc</a>
+            <a class="nava" href="#">Min konto</a>
+            <div class="how-to-sell1"><a class="nava1" href="/om">How to <span style="font-style: italic">sell</span></a></div>
+        </div>
+    </div>
+
+    <!-- Web Menu -->
+    <div class="web-menu">
+        <div class="web-header">
+            <input type="text" class="search-bar" placeholder="Søg...">
+            <a href="/" class="logo"><img src="/vectors/Logo_web.svg" alt="logo"></a>
+            <div class="header-buttons">
+                <div ><a class="how-to-sell" href="/om">How to <span style="font-style: italic">sell</span></a></div>
+                <div class="icon-group">
+                    <div class="person-icon"> <img src="/public/vectors/Profil knap.svg" alt="profilknap"></div>
+                    <div class="divider"></div>
+                    <div class="cart-icon"> <img src="/public/vectors/kurv.svg" alt="kurvknap"></div>
+                </div>
+            </div>
+        </div>
+        <div class="web-nav">
+            <div><a href="/garment">Tøj</a></div>
+            <div><a href="/garment">Sko</a></div>
+            <div><a href="/garment">Tasker</a></div>
+            <div><a href="/garment">Accessories</a></div>
+        
+        </div>
+    </div>
+</header>
+<main>
+    <slot/>
+</main>
+<footer class="footer">
+    <div class="footer1">
+        <div>
+            <div> <h4>Kabomani</h4></div>
+            <div><p>Om os</p></div>
+            <div><p>Åbningstider og butikker</p>
+            </div>
+            <div><p>Job</p></div>
+        </div>
+        <div>
+            <div><h4>Discoveer</h4></div>
+            <div><p>Sådan fungere det</p></div>
+            <div><p>Mobilapps</p></div>
+            <div><p>Kontakt</p></div>
+        </div>
+        <div>
+            <div><h4>Konto</h4></div>
+            <div><p>Min konto</p></div>
+            <div><p>Ordrer</p></div>
+            <div><p>Kurv</p></div>
+        </div>
+    </div>
+    <div class="line"></div>
+    
+    <div class="vectors">
+        <div class="vectors1">
+            <div><img src="/public/vectors/facebook.svg" alt="facebook"></div>
+            <div><img src="/public/vectors/insta.svg" alt="instagram"></div>
+            <div><img src="/public/vectors/tiktok.svg" alt="tiktok"></div>
+        </div>
+        <div class="vectors2">
+            <div><img src="/public/vectors/google-play-badge 1.svg" alt="googlelinj"></div>
+            <div><img src="/public/vectors/Group.svg" alt="appstore"></div>
+        </div>
+    </div>
+    </footer>
+
+<script>
+   document.addEventListener("DOMContentLoaded", function() {
+     // Hent burgerikonet ved hjælp af klassen "burger-icon"
+        const burgerIcon = document.querySelector(".burger-icon");
+         // Hent burgerikonet ved hjælp af klassen "burger-icon"
+        const sideNav = document.getElementById("sideNav");
+          // Hent luk-knappen ved hjælp af klassen "close-btn"
+        const closeBtn = document.querySelector(".close-btn");
+// Tilføj en klik-hændelseslytter til burgerikonet når den klikkes på sætter den sidemenuens bredde til 300px
+        burgerIcon.addEventListener("click", function() {
+            sideNav.style.width = "300px";
+        });
+    // Tilføj en klik-hændelseslytter til luk-knappen går den tilbage til 0.
+
+        closeBtn.addEventListener("click", function() {
+            sideNav.style.width = "0";
+        });
+    })
+
+</script>
+</body>
+</html>
+<style>
+
+    .footer {
+        background-color: rgba(81, 60, 34, 1);
+    }
+.navlogo{
+    display: flex;
+    justify-content: center;
+    position: relative;
+    left:40px;
+}
+    .header {
+  background:  #FFFAF5;
+  padding-bottom: 20px;
+}
+.logo img{
+    justify-content: center;
+align-items: center;
+}
+
+/* Mobile Menu Styles */
+.mobile-menu {
+    display: none;
+}
+.burger-icon{
+    color:rgba(81, 60, 34, 1) ;
+    cursor: pointer;
+}
+.mobile-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    color: white;
+}
+
+.burger {
+    font-size: 30px;
+    cursor: pointer;
+    color: rgba(81, 60, 34, 1);
+}
+
+.image-icon {
+    font-size: 24px;
+}
+
+.side-nav {
+    height: 100%;
+    width: 0px;
+    position: fixed;
+    top: -61px;
+    left: 0;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+    background: #F3ECD9;
+}
+.side-nav a {
+    padding: 22px 21px 10px 20px;
+    text-decoration: none;
+    
+    color: black;
+    display: block;
+    transition: 0.3s;
+}
+.nava {
+    border-bottom: 1px solid rgba(81, 60, 34, 1) ;
+font-family: Mattone;
+font-size: 10px;
+font-style: normal;
+line-height: normal;
+letter-spacing: 3px;
+}
+
+.side-nav a:hover {
+    color: #f1f1f1;
+}
+
+.side-nav .close-btn {
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}
+.close-btn{
+    color: rgba(81, 60, 34, 1);
+    outline: none;
+    background:none;
+    border:none;
+
+}
+
+/* Web Menu Styles */
+.web-menu {
+    display: block;
+}
+
+.web-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    color: white;
+}
+.search-bar{
+    width: 300px;
+    padding: 5px;
+    align-items: center;
+
+}
+.search-bar1 {
+    width: 250px;
+    padding: 5px;
+    align-items: center;
+    position: relative;
+    left: 20px;
+}
+
+.header-buttons {
+    display: flex;
+    align-items: center;
+}
+
+.how-to-sell {
+    margin-right: 25px;
+    width: 221px;
+    padding-right: 30px;
+    padding-left: 30px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+height: 50px;
+color: rgba(255, 255, 255, 1);
+text-align: center;
+font-family: "Mazius Display";
+font-size: 20px;
+font-weight: 400;
+line-height: normal;
+border-radius: 5px;
+background: rgba(132, 149, 0, 1);
+
+}
+.how-to-sell1 {
+    align-items: center;
+color: rgba(255, 255, 255, 1);
+text-align: center;
+font-family: "Mazius Display";
+font-size: 20px;
+font-weight: 400;
+line-height: normal;
+text-align: center;
+    margin-top: 34px;
+    margin-left: 30px;
+    margin-right: 30px;
+    border-radius: 5px;
+background: rgba(132, 149, 0, 1);
+}
+
+.how-to-sell:hover, .how-to-sell1:hover {
+    border-radius: 5px;
+background: rgba(200, 219, 75, 1);
+color: rgba(132, 149, 0, 1);
+}
+.font2 {
+    font-family: "Mazius Display";
+font-size: 33px;
+font-style: "extra italic":
+}
+.icon-group {
+    display: flex;
+    padding: 10px;
+    align-items: center;
+    gap: 25;
+}
+
+.icon-group .divider {
+    width: 2px;
+    height: 30px;
+    background-color: rgba(81, 60, 34, 1);
+    margin: 0 10px;
+}
+
+.web-nav a {
+    justify-content: space-around;
+    padding: 10px;
+    background-color: FFFAF5;
+    align-items: flex-start;
+    color: rgba(0, 0, 0, 1);
+/* Menu tekst 2 */
+font-family: Mattone;
+font-style: normal;
+font-weight: 400;
+line-height: normal;
+letter-spacing: 3.9px;
+}
+
+.web-nav  {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    justify-items: center;
+    padding: 10px;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    
+}
+
+.web-nav a:hover {
+    border-bottom: 3px solid rgba(132, 149, 0, 1) ;
+}
+@media (min-width: 815px) {
+    .footer1 {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        justify-content: center;
+        gap: 200px;
+        color: white;
+        font-family: Mattone;
+        font-size: 16px;
+        margin-left: 100px;
+        padding-top: 50px;
+    
+    }
+    .line {
+        padding: 20px;
+            border-bottom: 2px solid white; /* Hvid streg under div'en */
+            width: 95%; /* Fylder hele bredden */
+            box-sizing: border-box; 
+            text-align: center;
+            margin: 0 auto;
+            opacity: 30%;
+    }
+    .vectors {
+        display: grid;
+grid-template-columns: 1fr 1fr;
+justify-content: center;
+align-items: center;
+gap: 400px;
+padding-top: 50px;
+padding-bottom: 50px;
+    }
+    .vectors1 {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        margin-left: 40px;
+        gap: 30px;
+    }
+    .vectors2 {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        justify-content: center;
+        align-items: center;
+        margin-right: 40px;
+        
+    }
+}
+/* Media Queries */
+@media screen and (max-width: 890px) {
+    .mobile-menu {
+        display: block;
+    }
+    
+    .web-menu {
+        display: none;
+    }
+}
+    @media screen and (max-width: 815px) {
+    .footer1 {
+        display: grid;
+        grid-template-rows: 1fr 1fr 1fr;
+        color: white;
+        font-family: Mattone;
+        font-size: 16px;
+        margin-left: 45px;
+        padding-top: 50px;
+        gap: 80px;
+        padding-bottom: 50px;
+    }
+    .line {
+        padding: 20px;
+            border-top: 2px solid white; /* Hvid streg under div'en */
+            width: 85%; /* Fylder hele bredden */
+            box-sizing: border-box; 
+            text-align: center;
+            margin: 0 auto;
+            opacity: 30%;
+    }
+    .vectors{
+        display: grid;
+        grid-template-rows: 1fr 1fr;
+    }
+    .vectors1 {
+        order: 2;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        justify-items: center;
+        align-items: center;
+        gap: 30px;
+        padding-bottom: 60px;
+        padding-top: 30px;
+
+    }
+    .vectors2 {
+        order: 1;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        align-items: center;
+        justify-items: center;
+        gap: -20px;
+    }
+}
+
+</style>
+

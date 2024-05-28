@@ -1,0 +1,158 @@
+
+<div class="button">Filtre</div>
+
+<div id="filter-menu" class="filter-menu">
+    <div class="filter-menu-header">
+        <button class="clear-all-button" >Ryd alle</button>
+        <button class="close" aria-label="Close">&times;</button>
+    </div>
+    <div class="filter-section">
+        <div class="filter-header">
+            Afdeling <span class="arrow"><img src="/public/vectors/arrow.svg" alt="pil"></span>
+        </div>
+    </div>
+    <div class="filter-section">
+        <div class="filter-header" >
+            Forretning <span class="arrow"><img src="/public/vectors/arrow.svg" alt="pil"></span>
+        </div>
+    </div>
+    <div class="filter-section">
+        <div class="filter-header">
+            Størrelser <span class="arrow"><img src="/public/vectors/arrow.svg" alt="pil"></span>
+        </div>
+    </div>
+    <div class="filter-section">
+        <div class="filter-header">
+            Farve <span class="arrow"><img src="/public/vectors/arrow.svg" alt="pil"></span>
+        </div>
+    </div>
+    <div class="filter-section">
+        <div class="filter-header">
+            Stand <span class="arrow"><img src="/public/vectors/arrow.svg" alt="pil"></span>
+        </div>
+    </div>
+    <button class="close1">Vis resultater</button>
+</div>
+
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+const filtreIcon = document.querySelector(".button");
+const filterMenu = document.getElementById("filter-menu");
+const closeBtn = document.querySelector(".close");
+const closeBtn1 = document.querySelector (".close1");
+
+filtreIcon.addEventListener("click", function() {
+    filterMenu.style.width ="300px";
+});
+
+closeBtn.addEventListener("click", function() {
+console.log("filtermenu");
+    filterMenu.style.width = "0px";
+});
+
+closeBtn1.addEventListener("click", function(){
+    filterMenu.style.width ="0px"
+})
+});
+
+</script>
+<style>  
+
+.filter-menu {
+height: 100%;
+position: fixed;
+top: 0px;
+left: 0;
+width: 0;
+overflow-x: hidden;
+transition: 0.5s;
+background: #F3ECD9;
+
+}
+
+.filter-menu-header {
+display: flex;
+justify-content: space-between;
+align-items: center;
+margin-bottom: 20px;
+}
+
+.clear-all-button,
+.close {
+background: none;
+border: none;
+font-size: 16px;
+cursor: pointer;
+font-family: "Mazius Display";
+}
+.close {
+font-size: 30px;
+line-height: 1;
+margin: 10px;
+text-decoration: none;
+color: rgba(81, 60, 34, 1);
+}
+
+.filter-section {
+margin-bottom: 20px;
+border-bottom: 1px solid rgba(81, 60, 34, 1)
+}
+.close1 {
+width: 250px;
+height: 41px;
+color: var(--Hvid, #FFF);
+text-align: center;
+font-family: "Mazius Display";
+font-size: 25px;
+font-style: normal;
+font-weight: 400;
+line-height: normal;
+border: none;
+cursor: pointer;
+background-color:rgba(132, 149, 0, 1) ;
+
+}
+.filter-header {
+display: flex;
+justify-content: space-between;
+cursor: pointer;
+margin-left: 24px;
+text-align: center;
+font-family: Mattone;
+font-size: 15px;
+font-style: normal;
+font-weight: 400;
+line-height: normal;
+letter-spacing: 2.25px;
+margin-bottom: 40px;
+padding-top: 10px;
+
+}
+
+.filter-options {
+display: none;
+margin-top: 10px;
+padding-left: 20px;
+}
+.arrow {
+margin-right: 20px;
+}
+
+.show-results-button {
+width: 100%;
+padding: 10px;
+background-color: #28a745;
+color: white;
+border: none;
+cursor: pointer;
+font-size: 16px;
+}
+.button {
+color: white;
+
+}
+
+
+</style>

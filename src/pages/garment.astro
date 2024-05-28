@@ -1,0 +1,324 @@
+---
+import Filtering from "./componenter/Filtering.astro";
+import Garmentcomponent from "./Garmentcomponent.astro";
+import FilteringWeb from "./componenter/FilteringWeb.astro"
+import Mainlayout from "./layout/Mainlayout.astro";
+// funktion til at hente data fra en Supabase
+const data = await fetch("https://bifxyvyrqkafduaqfwhe.supabase.co/rest/v1/kabomani?select=*", {
+    method: "GET", // Angiver anmodningsmetoden som GET
+    headers: {
+        // Indsætter API-nøglen til godkendelse med Supabase
+        apikey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJpZnh5dnlycWthZmR1YXFmd2hlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTU1MjkzNTksImV4cCI6MjAzMTEwNTM1OX0.IqWoAtIBkjXXKbFnJ9BDvFcyIpgl8_3ZWTFgC0wfLlo"
+    },
+})
+// Når svaret modtages, konverter det til JSON-format
+.then(res => res.json());
+
+// Nu indeholder 'data' JSON-svaret fra API-opkaldet
+console.log(data); // Udskriv data til konsollen til fejlfinding eller yderligere behandling
+
+---
+<!-- 
+    Dette er en indlejring af en hovedlayout-komponent.
+    Hovedlayoutet indeholder typisk strukturelle elementer, såsom header, footer og navigationsmenuer,
+    som anvendes på tværs af flere sider i webapplikationen.
+-->
+
+<Mainlayout>
+<div class="container">
+    <div class="sti">
+        <a href="/"><h5>Hjem</h5></a>
+        <h5>></h5>
+        <h5>Tøj</h5>
+    </div>
+<div class="overskrift">
+	<h1>Tøj</h1>
+</div>
+<div class="knapper">
+	<div class="dropdown-container">
+		<div class="dropdown">
+			<button class="dropdown-button">Sortér
+			<img src="/public/vectors/filtrering.svg" alt="Icon" class="dropdown-icon">
+		
+			</button>
+		<div class="dropdown-content">
+			<a href="#New-to-Old">New to Old</a>
+			<a href="#Low-to-High">Low to High</a>
+			<a href="#High-to-Old">High to Old</a>
+		</div>
+	</div>
+	</div>
+	<div class="filtrering-container">
+		<div class="filtrering-button">
+			<div><Filtering/></div>
+		</div>
+	</div>
+</div>
+</div>
+<div class="webfilter">
+	<div>
+		<div class="filter-til-com">
+			<div><FilteringWeb/></div>
+		</div>
+	</div>
+	<div>
+	<article class="layout"> {data.map ((show) => {return <Garmentcomponent  data={show}/>;
+	})}
+	</article>  
+	</div>
+</div>
+
+<script>
+
+// 'DOMContentLoaded', som udløses, når HTML-dokumentet er blevet fuldt indlæst og analyseret
+document.addEventListener("DOMContentLoaded", function() {
+    // Hent knappen for dropdown-menuen ved hjælp af dens klasse
+    const dropdownButton = document.querySelector(".dropdown-button");
+    // Hent indholdet af dropdown-menuen ved hjælp af dens klasse
+    const dropdownContent = document.querySelector(".dropdown-content");
+
+    // Tilføj en klik-hændelseslytter til dropdown-knappen
+    dropdownButton.addEventListener("click", function() {
+        // Skift tilstanden 'show' for dropdown-indholdet, så det enten vises eller skjules
+        dropdownContent.classList.toggle("show");
+    });
+
+    // Lyt efter klikbegivenheder på hele vinduet
+    window.addEventListener("click", function(e) {
+        // Kontrollér om klikket ikke fandt sted inden i dropdown-knappen
+        if (!dropdownButton.contains(e.target)) {
+            // Hvis klikket ikke var inden i dropdown-knappen, fjern da 'show'-klassen fra dropdown-indholdet for at skjule det
+            dropdownContent.classList.remove("show");
+        }
+    });
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+    const dropdownButton = document.querySelector('.dropdown-button');
+    const dropdownContent = document.querySelector('.dropdown-content');
+
+    dropdownButton.addEventListener('click', function() {
+        dropdownContent.style.display = dropdownContent.style.display === 'block' ? 'none' : 'block';
+    });
+
+    // Lukker drop down menuen når man trykker på den
+    window.addEventListener('click', function(event) {
+        if (!event.target.matches('.dropdown-button')) {
+            if (dropdownContent.style.display === 'block') {
+                dropdownContent.style.display = 'none';
+            }
+        }
+    });
+});
+</script>
+
+<style>
+	h5 {
+    font-weight: lighter;
+}
+	.overskrift {
+		text-align: center;
+	}
+	.filter-til-com {
+		margin-left: 50px;
+		margin-right: 20px;
+	}
+	@media screen and (min-width: 815px) {
+		
+.sti, .sti a{
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 20px;
+	text-decoration: none;
+	color: black;
+}
+		.webfilter {
+		display: grid;
+		grid-template-columns: 1fr 4fr;
+		padding-top: 100px;
+	}
+	.filtrering-container {
+		display:none;
+	}
+.layout{
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+	gap:10px;
+}
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown-container {
+    position: absolute;
+    top: 0;
+    right: 50px;
+    height: 90%;
+    display: grid;
+    align-items: center;
+}
+
+.dropdown-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+    background: #849500;
+    width: 157px;
+    padding: 10px 20px;
+    gap: 10px;
+    border: none;
+    cursor: pointer;
+    color: white;
+    font-size: 16px;
+}
+
+.dropdown-button .dropdown-icon {
+    width: 16px;
+    height: 16px;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: rgba(200, 217, 74, 1);
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    border-radius: 5px;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    border-radius: 5px;
+	border-bottom: 1px solid black;
+}
+
+.dropdown-content a:hover {
+    color: #f1f1f1;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+	}
+@media screen and (max-width: 815px) {   
+.layout {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	margin-bottom: 100px;
+	gap:10px;
+	justify-items: center;
+}
+.knapper {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	width: 100%;
+	box-sizing: border-box;
+}
+.filtrering-container {
+	background: #849500;
+	border-radius: 5px;
+    border-left: 1px solid #000;
+}	
+
+.sti, .sti a{
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+	text-decoration: none;
+	color: black;
+}
+.dropdown-container {
+    align-items: center;
+    gap: 10px;
+    border-radius: 5px;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 16px;
+	background: #849500;
+	text-align: center;
+	padding-left: 40px;
+}
+
+.filtrering-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+	background: #849500;
+    gap: 10px;
+	padding-top: 10px;
+	font-family: Mattone;
+	text-align: center;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.dropdown-button {
+    align-items: center;
+	font-family: Mattone;
+    cursor: pointer;
+    font-size: 16px;
+	color: white;
+    background: #849500;
+    text-align: center;
+    padding-left: 25px;
+    padding-top: 10px;
+    display: flex;
+	border: none;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: rgba(200, 217, 74, 1);
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    top: 259px; /* Adjust as needed */
+    left: 0;
+    border-radius: 5px;
+	border-bottom: 1px solid black;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+	border-bottom: 1px solid black;
+}
+
+.dropdown-icon {
+    width: 16px;
+    height: 16px;
+    margin-left: 10px;
+}
+
+
+.filter-til-com {
+	display: none;
+}
+	.button-container {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .dropdown-button, .filtrering-button {
+        margin-bottom: 10px;
+    }
+	.overskrift {
+		text-align: center;
+	}
+}
+
+</style>
+
+

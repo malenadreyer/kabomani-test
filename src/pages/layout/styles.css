@@ -1,0 +1,24 @@
+h1,
+h2,
+h3,h5 {
+  font-family: "Mazius display", sans-serif;
+  color: black; /* Make sure to enclose font names with spaces in quotes */
+}
+p, h4 {
+  font-family: Mattone;
+}
+body {
+  background-color: #fffaf5;
+  margin: 0;
+  padding: 0;
+}
+
+img {
+  width: auto;
+  height: auto;
+}
+a {
+  text-decoration: none;
+  color: black;
+}
+
